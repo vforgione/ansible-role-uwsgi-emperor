@@ -1,0 +1,70 @@
+---
+
+- name: checking for pip installation
+  apt:
+    name: python3-pip
+    state: latest
+  when: python_version >= 3
+
+- name: checking for pip installation
+  apt:
+    name: python-pip
+    state: latest
+  when: python_version < 3
+
+- name: installing uwsgi
+  pip:
+    name: uwsgi
+    executable: pip3
+  when: python_version >= 3
+
+- name: installing uwsgi
+  pip:
+    name: uwsgi
+  when: python_version < 3
+
+- name: setting uwsgi binary path
+  set_fact: uwsgi_binary="/usr/local/bin/uwsgi"
+
+- name: copying uwsgi default file
+  copy:
+    dest: /etc/default/uwsgi-emperor
+    src: etc/default/uwsgi-emperor
+    owner: root
+    group: www-data
+
+- name: copying uwsgi configration files
+  copy:
+    dest: /etc/
+    src: etc/uwsgi-emperor
+    owner: root
+    group: www-data
+
+- name: creating init.d file for uwsgi
+  template:
+    dest: /etc/init.d/uwsgi-emperor
+    src: etc/init.d/uwsgi-emperor.j2
+    owner: root
+    group: www-data
+    mode: 755
+  notify: reload uwsgi-emperor
+
+- name: creating the vassal directory
+  file:
+    path: /etc/uwsgi-emperor/vassals
+    state: directory
+    owner: www-data
+    group: www-data
+
+- name: creating the log directory
+  file:
+    path: /var/log/uwsgi
+    state: directory
+    owner: www-data
+    group: www-data
+
+- name: making sure uwsgi-emperor is running
+  service:
+    name: uwsgi-emperor
+    state: started
+    enabled: yes
