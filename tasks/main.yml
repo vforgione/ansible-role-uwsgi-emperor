@@ -1,12 +1,16 @@
 ---
 
 - name: installing uwsgi
-  command: python{{ python_version }} -m pip3 install uwsgi
+  pip:
+    name: uwsgi
+    state: latest
+    executable: pip{{ python_version }}
   when: python_version >= 3
 
 - name: installing uwsgi
   pip:
     name: uwsgi
+    state: latest
   when: python_version < 3
 
 - name: setting uwsgi binary path
