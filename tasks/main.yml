@@ -1,21 +1,7 @@
 ---
 
-- name: checking for pip installation
-  apt:
-    name: python3-pip
-    state: latest
-  when: python_version >= 3
-
-- name: checking for pip installation
-  apt:
-    name: python-pip
-    state: latest
-  when: python_version < 3
-
 - name: installing uwsgi
-  pip:
-    name: uwsgi
-    executable: pip3
+  command: python{{ python_version }} -m pip3 install uwsgi
   when: python_version >= 3
 
 - name: installing uwsgi
