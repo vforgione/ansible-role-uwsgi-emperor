@@ -8,6 +8,11 @@ A role for installing and initializing uWSGI in emperor mode
 This role requires that a specified version of Python is installed on the target host machines. See [Role Variables](#role-variables) for more information.
 
 
+## Dependencies
+
+- vforgione.python
+
+
 ## Role Variables
 
 | name             | description                                                          | default | example |
