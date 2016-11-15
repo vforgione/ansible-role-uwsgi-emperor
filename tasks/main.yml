@@ -1,17 +1,7 @@
 ---
 
 - name: installing uwsgi
-  pip:
-    name: uwsgi
-    state: latest
-    executable: pip{{ python_version }}
-  when: python_version >= 3
-
-- name: installing uwsgi
-  pip:
-    name: uwsgi
-    state: latest
-  when: python_version < 3
+  command: python{{ python_version }} -m pip install uwsgi --update
 
 - name: setting uwsgi binary path
   set_fact: uwsgi_binary="/usr/local/bin/uwsgi"

@@ -1,0 +1,8 @@
+---
+- hosts: localhost
+  remote_user: root
+  vars:
+    - python_version: 3.5
+  roles:
+    - vforgione.python
+    - ansible-role-uwsgi-emperor
