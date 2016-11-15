@@ -7,7 +7,7 @@ galaxy_info:
   author: Vince Forgione
   description: A role for installing and initializing uWSGI in emperor mode
   issue_tracker_url: https://github.com/vforgione/ansible-role-uwsgi-emperor/issues
-  license: license: license (MIT)
+  license: license (MIT)
   min_ansible_version: 2.1
   github_branch: master
   platforms:
