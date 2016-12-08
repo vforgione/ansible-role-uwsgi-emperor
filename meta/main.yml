@@ -1,8 +1,5 @@
 ---
 
-dependencies:
-  - vforgione.python
-
 galaxy_info:
   author: Vince Forgione
   description: A role for installing and initializing uWSGI in emperor mode
