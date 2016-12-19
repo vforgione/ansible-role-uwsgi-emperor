@@ -1,7 +1,7 @@
 ---
 
 - name: installing uwsgi
-  command: python{{ python_version }} -m pip install uwsgi --update
+  command: "python{{ python_version }} -m pip install -U uwsgi"
 
 - name: setting uwsgi binary path
   set_fact: uwsgi_binary="/usr/local/bin/uwsgi"
