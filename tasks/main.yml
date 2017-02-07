@@ -1,5 +1,16 @@
 ---
 
+- name: apt installing uwsgi build requirements
+  apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - build-essential
+    - gcc
+  become: yes
+  tags:
+    - uwsgi-emperor
+
 - name: installing uwsgi
   command: "python{{ python_version }} -m pip install -U uwsgi"
 
@@ -12,6 +23,7 @@
     src: etc/default/uwsgi-emperor
     owner: root
     group: www-data
+  become: yes
 
 - name: copying uwsgi configration files
   copy:
@@ -19,6 +31,7 @@
     src: etc/uwsgi-emperor
     owner: root
     group: www-data
+  become: yes
 
 - name: creating init.d file for uwsgi
   template:
@@ -27,6 +40,7 @@
     owner: root
     group: www-data
     mode: 755
+  become: yes
   notify: reload uwsgi-emperor
 
 - name: creating the vassal directory
@@ -35,6 +49,7 @@
     state: directory
     owner: www-data
     group: www-data
+  become: yes
 
 - name: creating the log directory
   file:
@@ -42,9 +57,11 @@
     state: directory
     owner: www-data
     group: www-data
+  become: yes
 
 - name: making sure uwsgi-emperor is running
   service:
     name: uwsgi-emperor
-    state: started
+    state: restarted
     enabled: yes
+  become: yes
