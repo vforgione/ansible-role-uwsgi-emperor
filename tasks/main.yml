@@ -2,11 +2,9 @@
 
 - name: apt installing uwsgi build requirements
   apt:
-    name: "{{ item }}"
-    state: latest
-  with_items:
-    - build-essential
-    - gcc
+    pkg:
+      - build-essential
+      - gcc
   become: yes
   tags:
     - uwsgi-emperor
